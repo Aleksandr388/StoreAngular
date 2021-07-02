@@ -1,0 +1,17 @@
+<div class="login-page">
+  <div class="form">
+    <h1 class="text-shadow">Login</h1>
+    <form [formGroup]="myForm" novalidate (ngSubmit)="submit()" class="login-form">
+      <div class="alert-danger" *ngIf="myForm.controls['userEmail'].invalid && myForm.controls['userEmail'].touched">
+        Incorrect email
+      </div>
+      <input type="text" name="email" formControlName="userEmail" placeholder="username" />
+      <div class="alter alert-danger" *ngIf="myForm.controls['userPassword'].invalid && myForm.controls['userEmail'].touched">
+        Password must be more than 8 characters
+      </div>
+      <input type="password" name="password" formControlName="userPassword" placeholder="password" />
+      <button>login</button>
+      <p class="message">Not registered? <a href='register' routerLinkActive='active'>"Create an account</a></p>
+    </form>
+  </div>
+</div>
