@@ -1,14 +1,26 @@
 <div class="login-page">
-    <div class="form">
-      <h1 class="text-shadow">Registration</h1>
-      <form class="register-form">
-        <input type="text" placeholder="first name"/>
-        <input type="text" placeholder="last name">
-        <input type="text" placeholder="email address"/>
-        <input type="password" placeholder="Password" id="password" required>
-        <input type="password" placeholder="Confirm Password" id="confirm_password" required>
-        <button>create</button>
-        <p class="message">Already registered? <a href="login">Sign In</a></p>
-      </form>
-    </div>
+  <div class="form">
+    <h1 class="text-shadow">Registration</h1>
+    <form [formGroup]="myForm" novalidate (ngSubmit)="submit()" class="register-form">
+      <div class="alert-danger" *ngIf="myForm.controls['firstname'].invalid && myForm.controls['firstname'].touched">
+        Empty field
+      </div>
+      <input type="text" formControlName="firstname" placeholder="first name" />
+      <div class="alert-danger" *ngIf="myForm.controls['lastname'].invalid && myForm.controls['lastname'].touched">
+        Empty field
+      </div>
+      <input type="text" formControlName="lastname" placeholder="last name">
+      <div class="alert-danger" *ngIf="myForm.controls['email'].invalid && myForm.controls['email'].touched">
+        Incorrect email
+      </div>
+      <input type="text" formControlName="email" placeholder="email address" />
+      <div class="alter alert-danger" *ngIf="myForm.controls['password'].invalid && myForm.controls['password'].touched">
+        Password must be more than 8 characters
+      </div>
+      <input type="password" formControlName="password" placeholder="Password" id="password" required>
+      <input type="password" placeholder="Confirm Password" id="confirm_password" required>
+      <button type="submit">create</button>
+      <p class="message">Already registered? <a href="login">Sign In</a></p>
+    </form>
   </div>
+</div>

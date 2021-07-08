@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, NgZone, OnInit } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { Login } from 'src/app/store/actions/auth.action';
 
 
 
@@ -11,23 +14,33 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   myForm: FormGroup = new FormGroup({
-    "userEmail": new FormControl("", [
+    email: new FormControl("", [
       Validators.required,
       Validators.email
     ]),
-    "userPassword": new FormControl("", [
+    password: new FormControl("", [
       Validators.required,
-      Validators.minLength(8)
+      Validators.minLength(8),
+      Validators.pattern('(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{8,}')
     ])
   });
 
   submit() {
-    console.log(this.myForm.status);
+    this.login();
   }
-
-  constructor() { }
 
   ngOnInit(): void {
   }
 
+  constructor(private store: Store, private router: Router) { }
+
+  login() {
+    this.store.dispatch(new Login(this.myForm.value)).subscribe(
+      () => { }
+    );
+  }
+
+  
+
 }
+

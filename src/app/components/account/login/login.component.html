@@ -2,16 +2,18 @@
   <div class="form">
     <h1 class="text-shadow">Login</h1>
     <form [formGroup]="myForm" novalidate (ngSubmit)="submit()" class="login-form">
-      <div class="alert-danger" *ngIf="myForm.controls['userEmail'].invalid && myForm.controls['userEmail'].touched">
+      <div class="alert-danger" *ngIf="myForm.controls['email'].invalid && myForm.controls['email'].touched">
         Incorrect email
       </div>
-      <input type="text" name="email" formControlName="userEmail" placeholder="username" />
-      <div class="alter alert-danger" *ngIf="myForm.controls['userPassword'].invalid && myForm.controls['userEmail'].touched">
+      <input type="text" name="email" formControlName="email" placeholder="username" />
+      <div class="alter alert-danger"
+        *ngIf="myForm.controls['password'].invalid && myForm.controls['email'].touched">
         Password must be more than 8 characters
       </div>
-      <input type="password" name="password" formControlName="userPassword" placeholder="password" />
-      <button>login</button>
-      <p class="message">Not registered? <a href='register' routerLinkActive='active'>"Create an account</a></p>
+      <input type="password" formControlName="password" placeholder="password"/>
+      <button type="submit">login</button>
+      <p class="message">Not registered? <a href='register' routerLinkActive='active'>Create an account</a></p>
+      <p class="message">Forgot password? <a href="forgot-password" routerLinkActive ='active'>Remind password</a></p>
     </form>
   </div>
 </div>
