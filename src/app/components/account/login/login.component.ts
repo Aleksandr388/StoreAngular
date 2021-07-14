@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Login } from 'src/app/store/actions/auth.action';
@@ -13,34 +13,40 @@ import { Login } from 'src/app/store/actions/auth.action';
 })
 export class LoginComponent implements OnInit {
 
-  myForm: FormGroup = new FormGroup({
-    email: new FormControl("", [
-      Validators.required,
-      Validators.email
-    ]),
-    password: new FormControl("", [
-      Validators.required,
-      Validators.minLength(8),
-      Validators.pattern('(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{8,}')
-    ])
-  });
+  registerForm!: FormGroup;
+  submitted = false;
 
+  get f() { return this.registerForm.controls; }
+  
   submit() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.registerForm.invalid) {
+      return;
+    }
     this.login();
+    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value))
   }
 
   ngOnInit(): void {
+    this.registerForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(8)]],
+    });
   }
 
-  constructor(private store: Store, private router: Router) { }
+  constructor(private store: Store, private formBuilder: FormBuilder) { }
 
   login() {
-    this.store.dispatch(new Login(this.myForm.value)).subscribe(
+    this.store.dispatch(new Login(this.registerForm.value)).subscribe(
       () => { }
     );
   }
 
-  
+
 
 }
 

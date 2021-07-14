@@ -1,0 +1,15 @@
+a{
+    text-decoration: none;
+    font-size:300px;
+    color: orange;
+    text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
+                 0px -5px 35px rgba(255,255,255,0.3);
+}
+
+input{
+    max-block-size: 36px;
+    margin-left: 16px;
+}
+
+.bg-success{
+    background-image: linear-gradient(to top right, rgb(11, 156, 30), rgb(17, 161, 41), rgb(23, 166, 52), rgb(28, 170, 63), rgb(34, 175, 74), rgb(40, 180, 85), rgb(46, 185, 96), rgb(52, 190, 107), rgb(58, 195, 118), rgb(63, 199, 129), rgb(69, 204, 140), rgb(75, 209, 151));}

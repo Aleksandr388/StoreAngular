@@ -50,22 +50,27 @@ export class AuthState {
           signIn: false
         });
         localStorage.removeItem("refreshToken"),
-        this.router.navigate(['login']);
+          this.router.navigate(['login']);
       })
     );
   }
 
   @Action(Registration)
-  registration(ctx: StateContext<AuthStateModel>, action: Registration){
+  registration(ctx: StateContext<AuthStateModel>, action: Registration) {
     return this.authService.registration(action.payload).pipe(
       tap(() => {
-        this.router.navigate(['/login'])
+        if (true) {
+          this.router.navigate(['confirm-email'])
+        }
+        else {
+          console.error();
+        }
       })
-    ) 
+    )
   }
 
   @Action(ForgotPassword)
-  forgotpassword(ctx: StateContext<AuthStateModel>, action: ForgotPassword){
+  forgotpassword(ctx: StateContext<AuthStateModel>, action: ForgotPassword) {
     return this.authService.forgotpassword(action.payload).pipe(
       tap(() => {
         this.router.navigate(['/login'])

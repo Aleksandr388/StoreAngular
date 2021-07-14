@@ -79,7 +79,7 @@
 }
 .container .info span {
   color: #4d4d4d;
-  font-size: 12px;
+  font-size: 12px; 
 }
 .container .info span a {
   color: #000000;
@@ -89,7 +89,7 @@
   color: #EF3B3A;
 }
 body {
-  background: #76b852; /* fallback for old browsers */
+  background: #76b852;
   background: -webkit-linear-gradient(right, #76b852, #8DC26F);
   background: -moz-linear-gradient(right, #76b852, #8DC26F);
   background: -o-linear-gradient(right, #76b852, #8DC26F);
@@ -104,8 +104,8 @@ body {
   text-shadow: 0px 15px 5px rgba(0,0,0,0.1), 10px 20px 5px rgba(0,0,0,0.05), -10px 20px 5px rgba(0,0,0,0.05);
 }
 
-div.alert-danger{
-  color: red;
+.form-group{
   text-align: left;
 }
+
 

@@ -6,7 +6,9 @@ import { LoginComponent } from 'src/app/components/account/login/login.component
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ForgotPasswordComponent } from 'src/app/components/account/forgot-password/forgot-password.component';
-import { LogoutComponent } from 'src/app/components/account/logout/logout/logout.component';
+import { ConfirmEmailComponent } from 'src/app/components/account/confirm-email/confirm-email.component';
+import { LogoutComponent } from 'src/app/components/account/logout/logout.component';
+import { ProfileComponent } from 'src/app/components/account/profile/profile.component';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { LogoutComponent } from 'src/app/components/account/logout/logout/logout
     LoginComponent,
     RegisterComponent,
     ForgotPasswordComponent,
-    LogoutComponent
+    ConfirmEmailComponent,
+    LogoutComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

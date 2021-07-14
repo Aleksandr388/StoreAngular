@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { Registration } from 'src/app/store/actions/auth.action';
+import { MustMatch } from '../../../shared/extentions/must-mutch';
 
 @Component({
   selector: 'app-register',
@@ -11,36 +11,44 @@ import { Registration } from 'src/app/store/actions/auth.action';
 })
 export class RegisterComponent implements OnInit {
 
-  myForm: FormGroup = new FormGroup({
+  constructor(private store: Store, private formBuilder: FormBuilder) { }
 
-    "firstname": new FormControl("", [
-      Validators.required,
-    ]),
-    "lastname": new FormControl("", [
-      Validators.required,
-    ]),
-    "email": new FormControl("", [
-      Validators.required,
-      Validators.email
-    ]),
-    "password": new FormControl("", [
-      Validators.required,
-      Validators.minLength(8)
-    ])
-  });
+  registerForm!: FormGroup;
+  submitted = false;
+
+  ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [
+        Validators.required,
+        Validators.pattern('(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{8,}'),
+        Validators.minLength(8)]],
+      confirmPassword: ['',
+        Validators.required,
+        Validators.minLength(8)
+      ]
+    }, {
+      validator: MustMatch('password', 'confirmPassword')
+    });
+  }
+
+  get f() { return this.registerForm.controls; }
 
   submit() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.registerForm.invalid) {
+      return;
+    }
     this.registration();
   }
 
-  constructor(private store: Store, private router: Router) { }
-
   registration() {
-    this.store.dispatch(new Registration(this.myForm.value)).subscribe(
+    this.store.dispatch(new Registration(this.registerForm.value)).subscribe(
       () => { }
     );
   }
-
-  ngOnInit() { }
-
 }

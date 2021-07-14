@@ -27,4 +27,5 @@ export class AuthService {
     forgotpassword(forgot: ForgotPasswordModel){
         return this.http.post('https://localhost:5001/api/Account/ForgotPassword', forgot)
     }
+
 }

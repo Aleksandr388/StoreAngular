@@ -9,12 +9,14 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { FormsModule } from '@angular/forms';
 import { AuthState } from './store/states/auth.state';
 import { HttpClientModule } from '@angular/common/http';
-import { ForgotPasswordComponent } from './components/account/forgot-password/forgot-password.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { ProfileComponent } from './components/account/profile/profile.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    NavBarComponent,
   ],
   imports: [
     BrowserModule,

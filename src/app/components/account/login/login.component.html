@@ -1,19 +1,25 @@
 <div class="login-page">
   <div class="form">
     <h1 class="text-shadow">Login</h1>
-    <form [formGroup]="myForm" novalidate (ngSubmit)="submit()" class="login-form">
-      <div class="alert-danger" *ngIf="myForm.controls['email'].invalid && myForm.controls['email'].touched">
-        Incorrect email
+    <form [formGroup]="registerForm" (ngSubmit)="submit()">
+      <div class="form-group">
+          <input placeholder="email" type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+              <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+          </div>
       </div>
-      <input type="text" name="email" formControlName="email" placeholder="username" />
-      <div class="alter alert-danger"
-        *ngIf="myForm.controls['password'].invalid && myForm.controls['email'].touched">
-        Password must be more than 8 characters
+      <div class="form-group">
+          <input placeholder="password" type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Password is required</div>
+              <div *ngIf="f.password.errors.minlength">Your password must be at least 8 characters</div>
+          </div>
       </div>
-      <input type="password" formControlName="password" placeholder="password"/>
-      <button type="submit">login</button>
+      <button class="button1" type="submit">login</button>
       <p class="message">Not registered? <a href='register' routerLinkActive='active'>Create an account</a></p>
       <p class="message">Forgot password? <a href="forgot-password" routerLinkActive ='active'>Remind password</a></p>
     </form>
+    <a href=""></a>
   </div>
 </div>

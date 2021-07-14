@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Actions, ofActionDispatched, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { Logout } from 'src/app/store/actions/auth.action';
 
 @Component({
@@ -9,6 +9,7 @@ import { Logout } from 'src/app/store/actions/auth.action';
   styleUrls: ['./logout.component.css']
 })
 export class LogoutComponent implements OnInit {
+
   constructor(private store: Store, private router: Router) { }
 
 
@@ -22,4 +23,5 @@ logout(){
 
   ngOnInit() {
   }
+
 }
