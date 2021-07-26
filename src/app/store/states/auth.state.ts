@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { Tokens } from "src/app/models/auth.model";
 import { AuthService } from "src/app/services/auth.service";
-import { ForgotPassword, Login, Logout, Registration } from "../actions/auth.action";
+import { ForgotPassword, Login, Logout, Registration, RestoreToken } from "../actions/auth.action";
 import { tap } from 'rxjs/operators';
 
 export interface AuthStateModel {
@@ -25,7 +25,7 @@ export class AuthState {
   constructor(private authService: AuthService, private router: Router) { }
 
   @Selector()
-  static jwtToken(state: AuthStateModel) {
+  static accesToken(state: AuthStateModel) {
     return state.tokens?.accesToken;
   }
 
@@ -35,9 +35,11 @@ export class AuthState {
       .login(action.payload)
       .pipe(
         tap((result) => {
-          ctx.setState({ tokens: result, signIn: true }),
-            localStorage.setItem("refreshToken", result.refreshToken);
-          this.router.navigate(['']);
+          if (true)
+            ctx.setState({ tokens: result, signIn: true }),
+              localStorage.setItem("refreshToken", result.refreshToken),
+              localStorage.setItem("accesToken", result.accesToken)
+          this.router.navigate(['profile']);
         })
       );
   }
@@ -76,5 +78,23 @@ export class AuthState {
         this.router.navigate(['/login'])
       })
     )
+  }
+
+  @Action(RestoreToken)
+  restoreToken(ctx: StateContext<AuthStateModel>) {
+
+    const refreshToken = localStorage.getItem('refreshToken');
+    const accesToken = localStorage.getItem('accesToken');
+    if (refreshToken && accesToken) {
+      const state = ctx.getState();
+      ctx.patchState({
+        ...state,
+        signIn: true,
+        tokens: {
+          accesToken: accesToken,
+          refreshToken: refreshToken
+        }
+      })
+    }
   }
 }

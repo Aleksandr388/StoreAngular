@@ -21,3 +21,7 @@ export class ForgotPassword {
 
     constructor(public payload: ForgotPasswordModel) { }
 }
+
+export class RestoreToken {
+    static readonly type = '[Auth] RestoreToken';
+}

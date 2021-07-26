@@ -13,24 +13,24 @@ import { Login } from 'src/app/store/actions/auth.action';
 })
 export class LoginComponent implements OnInit {
 
-  registerForm!: FormGroup;
+  loginForm!: FormGroup;
   submitted = false;
 
-  get f() { return this.registerForm.controls; }
+  get f() { return this.loginForm.controls; }
   
   submit() {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.registerForm.invalid) {
+    if (this.loginForm.invalid) {
       return;
     }
     this.login();
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value))
+    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.loginForm.value))
   }
 
   ngOnInit(): void {
-    this.registerForm = this.formBuilder.group({
+    this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [
         Validators.required,
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
   constructor(private store: Store, private formBuilder: FormBuilder) { }
 
   login() {
-    this.store.dispatch(new Login(this.registerForm.value)).subscribe(
+    this.store.dispatch(new Login(this.loginForm.value)).subscribe(
       () => { }
     );
   }

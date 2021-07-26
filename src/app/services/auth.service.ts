@@ -1,15 +1,15 @@
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import { ForgotPasswordModel, LoginModel, RegistrationModel, Tokens } from "../models/auth.model";
+import { ForgotPasswordModel, LoginModel, RegistrationModel, StoreUserModel, Tokens } from "../models/auth.model";
 import { HttpClient } from '@angular/common/http'
-import { Token } from "@angular/compiler/src/ml_parser/lexer";
+import { Store } from "@ngxs/store";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
     // Auth Service Methods
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private store: Store,) {
     }
 
     login(signIn: LoginModel): Observable<Tokens> {
@@ -24,8 +24,15 @@ export class AuthService {
         return this.http.post('https://localhost:5001/api/Account/SignUp', register)
     }
 
-    forgotpassword(forgot: ForgotPasswordModel){
+    forgotpassword(forgot: ForgotPasswordModel) {
         return this.http.post('https://localhost:5001/api/Account/ForgotPassword', forgot)
+    }
+
+    loggedIn() {
+        return !!localStorage.getItem('token')
+    }
+
+    restoreToken() {
     }
 
 }

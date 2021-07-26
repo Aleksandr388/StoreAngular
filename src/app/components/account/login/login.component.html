@@ -1,7 +1,7 @@
 <div class="login-page">
   <div class="form">
-    <h1 class="text-shadow">Login</h1>
-    <form [formGroup]="registerForm" (ngSubmit)="submit()">
+    <h1><span>L</span><span>O</span><span>G</span><span>I</span><span>N</span></h1>
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
       <div class="form-group">
           <input placeholder="email" type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
           <div *ngIf="submitted && f.email.errors" class="invalid-feedback">

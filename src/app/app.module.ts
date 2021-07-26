@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthState } from './store/states/auth.state';
 import { HttpClientModule } from '@angular/common/http';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-import { ProfileComponent } from './components/account/profile/profile.component';
+import { JwtHelperService, JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 
 @NgModule({
@@ -28,7 +28,11 @@ import { ProfileComponent } from './components/account/profile/profile.component
     FormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [JwtHelperService,
+    { 
+      provide: JWT_OPTIONS,
+      useValue: JWT_OPTIONS
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
