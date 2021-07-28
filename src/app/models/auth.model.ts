@@ -18,10 +18,12 @@ export interface RegistrationModel{
 
 export interface StoreUserModel{
     id: number
-    userName: string
+    email: string
     firstName: string
     lastName: string
     isEmailConfirmed: boolean
+    currentPassword: string
+    newPassword: string
 }
 
 export interface ForgotPasswordModel{

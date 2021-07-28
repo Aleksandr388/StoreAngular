@@ -1,26 +1,37 @@
 <div class="login-page">
     <div class="form">
+        <div class="pensil-img">
+            <a type="button"  (click)="editEnable()" *ngIf="!dataEditEnable" >
+            <img class="img-pensil" src="https://img.icons8.com/cotton/2x/edit.png" alt="pensil">
+            </a>
+            <a type="button" *ngIf="dataEditEnable" (click)="closeEdit()">
+                <img class="img-pensil" src="https://pngicon.ru/file/uploads/cancel-256x256.png" alt="pensil">
+                </a>
+        </div>
         <div class="image-profile">
         <img src="https://www.skyhairtransplant.com/ru/img/elements/tes1.jpg" alt="profile">
         </div>
       <h1><span>P</span><span>R</span><span>O</span><span>F</span><span>I</span><span>L</span><span>E</span></h1>
-      <form [formGroup]="registerForm">
-            <input placeholder="first name" type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
-            
+      <form [formGroup]="userForm">
+        <input  placeholder="Email"  formControlName="email"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
         <div class="form-group">
-            <input placeholder="last name" type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
-            
+            <input  placeholder="First Name"  formControlName="firstName"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
         </div>
         <div class="form-group">
-            <input placeholder="email" type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <input  placeholder="Last Name"  formControlName="lastName"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
         </div>
         <div class="form-group">
-            <input placeholder="password"  type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+            <input  placeholder="Current Password"  formControlName="currentPassword" *ngIf = "dataEditEnable"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
         </div>
-        <div class="form-group">
-            <input placeholder="confirm password" type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
+        <div class="form-group">  
+            <input  placeholder="New Password"  formControlName="newPassword" *ngIf = "dataEditEnable" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
         </div>
-        <button type="submit">Save</button>
+        <div class="form-group">  
+            <input  placeholder="Confrim Password"  formControlName="confirmPassword" *ngIf = "dataEditEnable" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
+        </div>
+        <div >
+            <button type="submit" (click)="updateForm()" *ngIf="dataEditEnable">Save</button>
+        </div>
       </form>
     </div>
   </div>

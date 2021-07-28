@@ -1,14 +1,16 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { Tokens } from "src/app/models/auth.model";
+import { StoreUserModel, Tokens } from "src/app/models/auth.model";
 import { AuthService } from "src/app/services/auth.service";
-import { ForgotPassword, Login, Logout, Registration, RestoreToken } from "../actions/auth.action";
+import { ForgotPassword, GetUserData, Login, Logout, Registration, RestoreToken, UpdateUserProfile } from "../actions/auth.action";
 import { tap } from 'rxjs/operators';
+import { UserService } from "src/app/services/user.service";
 
 export interface AuthStateModel {
   signIn: boolean;
   tokens: Tokens | null;
+  user: StoreUserModel | null;
 }
 
 @State<AuthStateModel>({
@@ -16,14 +18,19 @@ export interface AuthStateModel {
   defaults: {
     tokens: null,
     signIn: false,
+    user: null
   }
 })
 
 @Injectable()
 export class AuthState {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private userService: UserService) { }
 
+  @Selector() 
+  static user (state:AuthStateModel) :StoreUserModel | null { 
+    return state.user;
+  }
   @Selector()
   static accesToken(state: AuthStateModel) {
     return state.tokens?.accesToken;
@@ -35,11 +42,15 @@ export class AuthState {
       .login(action.payload)
       .pipe(
         tap((result) => {
-          if (true)
-            ctx.setState({ tokens: result, signIn: true }),
+          if (result.accesToken || result.refreshToken !== undefined){
+            ctx.setState({ tokens: result, signIn: true, user: null }),
               localStorage.setItem("refreshToken", result.refreshToken),
               localStorage.setItem("accesToken", result.accesToken)
-          this.router.navigate(['profile']);
+          this.router.navigate(['']);
+          }
+          else{
+            this.router.navigate(['login']);
+          }
         })
       );
   }
@@ -49,7 +60,8 @@ export class AuthState {
       tap(() => {
         ctx.patchState({
           tokens: null,
-          signIn: false
+          signIn: false,
+          user: null
         });
         localStorage.removeItem("refreshToken"),
           this.router.navigate(['login']);
@@ -82,7 +94,6 @@ export class AuthState {
 
   @Action(RestoreToken)
   restoreToken(ctx: StateContext<AuthStateModel>) {
-
     const refreshToken = localStorage.getItem('refreshToken');
     const accesToken = localStorage.getItem('accesToken');
     if (refreshToken && accesToken) {
@@ -96,5 +107,23 @@ export class AuthState {
         }
       })
     }
+  }
+
+  @Action(GetUserData)
+  getUserData(ctx: StateContext<AuthStateModel>, action: GetUserData) {
+    const accesToken = localStorage.getItem('accesToken');
+    return this.userService.getUserData(accesToken!).pipe(
+      tap(result => {
+        ctx.patchState({ user: result as any })
+      },
+      ));
+  }
+
+  @Action(UpdateUserProfile)
+  updateUserProfile(ctx: StateContext<AuthStateModel>, action: UpdateUserProfile) {
+    const accesToken = localStorage.getItem('accesToken');
+    return this.userService.updateUserProfile(action.payload).subscribe(
+      () =>{ ctx.dispatch(new GetUserData(accesToken!));}
+    );    
   }
 }

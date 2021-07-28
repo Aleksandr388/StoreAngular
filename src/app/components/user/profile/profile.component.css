@@ -109,3 +109,19 @@ img{
     padding: 2%; /* Поля */
     text-align: center;
 }
+.pensil-img{
+  margin-left: 250px;
+  block-size: 30px;
+  background-color: white;
+  background: white;
+}
+
+.img-pensil{
+  height: 30px;
+  width: 30px;
+  background: white;
+}
+
+.pensil-buttom::after{
+  background-color: white;
+}

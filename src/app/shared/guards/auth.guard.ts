@@ -16,11 +16,10 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         this._store.select(ourState => ourState.auth.signIn).subscribe(
             (res) => {
-                debugger
                 const accesToken = localStorage.getItem('accesToken');
                 let isTokenLife = this.jwtHelperService.isTokenExpired(accesToken!)
-                if (!isTokenLife) {
-                    this.router.navigate(['login']);
+                if (isTokenLife) {
+                    this.router.navigate(['']);
                 }
                 if (!res) {
                     this.router.navigate(['/login']);
