@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.login();
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.loginForm.value))
   }
 
   ngOnInit(): void {

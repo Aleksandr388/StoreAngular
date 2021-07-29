@@ -64,7 +64,8 @@ export class AuthState {
           user: null
         });
         localStorage.removeItem("refreshToken"),
-          this.router.navigate(['login']);
+        localStorage.removeItem("accesToken")
+          this.router.navigate(['nav-bar']);
       })
     );
   }
@@ -75,9 +76,6 @@ export class AuthState {
       tap(() => {
         if (true) {
           this.router.navigate(['confirm-email'])
-        }
-        else {
-          console.error();
         }
       })
     )

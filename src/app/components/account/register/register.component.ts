@@ -27,6 +27,7 @@ export class RegisterComponent implements OnInit {
         Validators.minLength(8)]],
       confirmPassword: ['',
         Validators.required,
+        Validators.minLength(8)
       ],
     }, {
       validator: MustMatch('password', 'confirmPassword')
@@ -36,6 +37,8 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   submit() {
+    debugger
+
     this.submitted = true;
 
     // stop here if form is invalid

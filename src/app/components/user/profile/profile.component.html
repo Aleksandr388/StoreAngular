@@ -13,21 +13,45 @@
         </div>
       <h1><span>P</span><span>R</span><span>O</span><span>F</span><span>I</span><span>L</span><span>E</span></h1>
       <form [formGroup]="userForm">
-        <input  placeholder="Email"  formControlName="email"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+          <div class="form-group">
+            <input  placeholder="Email" type="text" formControlName="email"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Email is required</div>
+                <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+            </div>
+          </div>
         <div class="form-group">
-            <input  placeholder="First Name"  formControlName="firstName"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+            <input placeholder="first name" type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+          <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+              <div *ngIf="f.firstName.errors.required">First Name is required</div>
+          </div>
+          </div>
+        <div class="form-group">
+            <input placeholder="last name" type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+          <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+              <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+          </div>
         </div>
         <div class="form-group">
-            <input  placeholder="Last Name"  formControlName="lastName"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-        </div>
-        <div class="form-group">
-            <input  placeholder="Current Password"  formControlName="currentPassword" *ngIf = "dataEditEnable"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+            <input  placeholder="Current Password"  formControlName="currentPassword" *ngIf = "dataEditEnable" (change)="setChecker()"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.currentPassword.errors }" />
+            <div *ngIf="submitted && f.currentPassword.errors" class="invalid-feedback">
+                <div *ngIf="f.currentPassword.errors.required">Password is required</div>
+            </div>
         </div>
         <div class="form-group">  
-            <input  placeholder="New Password"  formControlName="newPassword" *ngIf = "dataEditEnable" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
+             <input placeholder="New Password"  type="password" formControlName="newPassword"  *ngIf = "dataEditEnable" (change)="setChecker()" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.newPassword.errors }" />
+          <div *ngIf="submitted && f.newPassword.errors"  class="invalid-feedback">
+              <div *ngIf="f.newPassword.errors.required">Password is required</div>
+              <div *ngIf="f.newPassword.errors.minlength">Your password must be at least 8 characters</div>
+              <div *ngIf="f.newPassword.errors.pattern"> As well as contain at least one uppercase, one lowercase, and one number</div>
+          </div>
         </div>
         <div class="form-group">  
-            <input  placeholder="Confrim Password"  formControlName="confirmPassword" *ngIf = "dataEditEnable" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
+            <input placeholder="Confirm Password" type="password" formControlName="confirmPassword" *ngIf = "dataEditEnable" (change)="setChecker()" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors !== null }" />
+            <div *ngIf="submitted && f.confirmPassword.errors !== null"  class="invalid-feedback">
+                <div *ngIf="f.confirmPassword.errors.required"><p class="texxxt">Confirm Password is required</p></div>
+                <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+            </div>
         </div>
         <div >
             <button type="submit" (click)="updateForm()" *ngIf="dataEditEnable">Save</button>

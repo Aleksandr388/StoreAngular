@@ -10,7 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { AuthState } from './store/states/auth.state';
 import { HttpClientModule } from '@angular/common/http';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-import { JwtHelperService, JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { PrintingEditionModule } from './modules/printing-edition/printing-edition/printing-edition.module';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { JwtHelperService, JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
     NgxsLoggerPluginModule.forRoot({}),
     FormsModule,
     HttpClientModule,
+    PrintingEditionModule
   ],
   providers: [JwtHelperService,
     { 
