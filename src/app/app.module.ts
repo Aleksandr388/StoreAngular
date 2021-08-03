@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { PrintingEditionModule } from './modules/printing-edition/printing-edition/printing-edition.module';
+import { PrintingEditionState } from './store/states/printing-edition.state';
 
 
 @NgModule({
@@ -23,7 +24,7 @@ import { PrintingEditionModule } from './modules/printing-edition/printing-editi
     BrowserModule,
     AppRoutingModule,
     AuthModule,
-    NgxsModule.forRoot([AuthState]),
+    NgxsModule.forRoot([AuthState, PrintingEditionState]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot({}),
     FormsModule,

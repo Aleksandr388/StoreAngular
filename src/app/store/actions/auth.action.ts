@@ -27,6 +27,7 @@ export class RestoreToken {
 }
 
 export class GetUserData{
+
     static readonly type = '[Auth] GetUserData';
 
     constructor(public payload: string) { }

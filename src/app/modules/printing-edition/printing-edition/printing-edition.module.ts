@@ -5,8 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-
-
 @NgModule({
   declarations: [
     PrintingEditionPageComponent
@@ -18,4 +16,6 @@ import { RouterModule } from '@angular/router';
     RouterModule
   ]
 })
-export class PrintingEditionModule { }
+export class PrintingEditionModule { 
+  
+}

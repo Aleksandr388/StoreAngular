@@ -61,7 +61,6 @@ export class ProfileComponent implements OnInit {
 
     this.submitted = true;
 
-    debugger
     if(!this.userForm.controls.currentPassword.dirty &&  !this.userForm.controls.confirmPassword.dirty && !this.userForm.controls.newPassword.dirty){
       this.userForm.controls.currentPassword.setErrors(null)
       this.userForm.controls.confirmPassword.setErrors(null)
@@ -71,7 +70,6 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
-    debugger
     if (this.userForm.dirty) {
       this.store.dispatch(new UpdateUserProfile(this.userForm.value)).subscribe(
         () => {
@@ -86,6 +84,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    debugger
     this.store.dispatch(new GetUserData(this.userForm.value))
   }
 }

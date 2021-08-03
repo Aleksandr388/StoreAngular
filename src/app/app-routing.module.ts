@@ -8,14 +8,16 @@ import { RegisterComponent } from './components/account/register/register.compon
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { UserGuard } from './shared/guards/user.guard';
+import { PrintingEditionPageComponent } from './components/printing-edition/printing-edition-page/printing-edition-page.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'nav-bar', pathMatch: 'full' },
+  { path: '', redirectTo: 'edition-page', pathMatch: 'full' },
   { path: 'login', canActivate: [UserGuard], component: LoginComponent },
   { path: 'register', canActivate: [UserGuard], component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },    
   { path: 'confirm-email', component: ConfirmEmailComponent },
   { path: 'profile', canActivate: [AuthGuard], component: ProfileComponent },
+  { path: 'edition-page', component: PrintingEditionPageComponent}
 ];
 
 @NgModule({

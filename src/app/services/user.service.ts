@@ -11,6 +11,7 @@ export class UserService {
     constructor(private http: HttpClient, private store: Store,) {
     }
     getUserData(token: string){
+        debugger
         return this.http.get<StoreUserModel>('https://localhost:5001/api/User/GetByIdUser?token='+token)
     }
 
